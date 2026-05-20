@@ -3,57 +3,1839 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retention Schematics OS</title>
+<title>Retention Schematics OS — Design the System. Expand the Customer. Compound the Revenue.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a; }
-  header { background: #1B4F8A; color: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; }
-  header h1 { margin: 0 0 10px 0; }
-  nav a { color: white; margin-right: 20px; text-decoration: none; }
-  h2 { color: #1B4F8A; }
-  .plan { border: 2px solid #1B4F8A; border-radius: 8px; padding: 30px; margin: 20px 0; }
-  .price { font-size: 2em; font-weight: bold; color: #E87722; }
-  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #ccc; font-size: 0.9em; }
-  footer a { color: #1B4F8A; margin-right: 20px; }
+:root {
+  --navy: #1B4F8A;
+  --navy-dark: #0f2d52;
+  --navy-deeper: #091e38;
+  --orange: #E87722;
+  --orange-light: #f59040;
+  --white: #ffffff;
+  --off-white: #f7f8fc;
+  --gray-100: #eef1f7;
+  --gray-300: #c4ccd8;
+  --gray-500: #7a8699;
+  --gray-700: #3d4a5c;
+  --green: #1a7a4a;
+  --text: #1a2332;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11, 29, 52, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 40px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  height: 38px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.nav-brand-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.03em;
+}
+
+.nav-brand-tag {
+  font-size: 10px;
+  color: var(--orange);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-ghost {
+  color: rgba(255,255,255,0.75) !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.btn-ghost:hover { color: var(--white) !important; }
+
+.btn-primary {
+  background: var(--orange);
+  color: var(--white);
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--orange-light);
+  transform: translateY(-1px);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--navy-deeper) 0%, var(--navy-dark) 40%, #1a3a6e 100%);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 68px;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,119,34,0.15) 0%, transparent 70%);
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232,119,34,0.15);
+  border: 1px solid rgba(232,119,34,0.3);
+  color: var(--orange-light);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero-title {
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.hero-title .accent { color: var(--orange); }
+
+.hero-subtitle {
+  font-size: 17px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  font-weight: 400;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+  background: var(--orange);
+  color: var(--white);
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-hero-primary:hover {
+  background: var(--orange-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,119,34,0.35);
+}
+
+.btn-hero-ghost {
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 2px;
+}
+
+.btn-hero-ghost:hover { color: var(--white); }
+
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+}
+
+.trust-item::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: bold;
+}
+
+.hero-visual {
+  position: relative;
+}
+
+.hero-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.hero-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.hero-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.hero-badge {
+  background: rgba(26,122,74,0.2);
+  border: 1px solid rgba(26,122,74,0.4);
+  color: #4ade80;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.metric-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.metric-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.metric-value.orange { color: var(--orange); }
+.metric-value.green { color: #4ade80; }
+.metric-value.red { color: #f87171; }
+
+.metric-delta {
+  font-size: 11px;
+  color: #4ade80;
+  font-family: 'DM Mono', monospace;
+  margin-top: 2px;
+}
+
+.metric-delta.down { color: #f87171; }
+
+.health-bar-section { margin-top: 4px; }
+
+.health-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+}
+
+.health-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.health-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s ease;
+}
+
+.fill-green { background: linear-gradient(90deg, #16a34a, #4ade80); width: 87%; }
+.fill-yellow { background: linear-gradient(90deg, #d97706, #fbbf24); width: 58%; }
+.fill-red { background: linear-gradient(90deg, #dc2626, #f87171); width: 22%; }
+
+.floating-tag {
+  position: absolute;
+  background: var(--navy-dark);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+}
+
+.tag-top {
+  top: -18px;
+  right: 20px;
+  color: var(--orange);
+}
+
+.tag-bottom {
+  bottom: -18px;
+  left: 20px;
+}
+
+/* ── SECTION BASE ── */
+section {
+  padding: 100px 40px;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  color: var(--navy-dark);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.section-title.white { color: var(--white); }
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--gray-500);
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+.section-subtitle.white { color: rgba(255,255,255,0.6); }
+
+/* ── PROBLEM BAND ── */
+.problem-band {
+  background: var(--gray-100);
+  padding: 60px 40px;
+  border-top: 1px solid var(--gray-300);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.problem-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.problem-stat {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.problem-stat span { color: var(--orange); }
+
+.problem-text {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.6;
+  max-width: 260px;
+}
+
+/* ── WHAT IS IT ── */
+.what-is {
+  background: var(--white);
+}
+
+.what-is-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.what-is-left .section-subtitle {
+  margin-bottom: 32px;
+}
+
+.pillar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pillar-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.pillar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(27,79,138,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pillar-text h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-dark);
+  margin-bottom: 3px;
+}
+
+.pillar-text p {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+.what-is-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.os-layer {
+  background: var(--navy-deeper);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.os-layer::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--orange);
+  border-radius: 0 2px 2px 0;
+}
+
+.os-layer-label {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.os-layer-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.os-layer-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+.os-layer-tools {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.tool-chip {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── HOW IT WORKS ── */
+.how-it-works {
+  background: var(--off-white);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+}
+
+.step-card {
+  position: relative;
+}
+
+.step-number {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.step-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.step-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.65;
+}
+
+.step-connector {
+  position: absolute;
+  top: 28px;
+  right: -16px;
+  color: var(--gray-300);
+  font-size: 18px;
+  z-index: 1;
+}
+
+/* ── WHO IS IT FOR ── */
+.who-for {
+  background: var(--white);
+}
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.persona-card {
+  border: 1px solid var(--gray-100);
+  border-radius: 14px;
+  padding: 28px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.persona-card:hover {
+  border-color: var(--navy);
+  box-shadow: 0 8px 32px rgba(27,79,138,0.1);
+  transform: translateY(-3px);
+}
+
+.persona-role {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.persona-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 10px;
+}
+
+.persona-desc {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.persona-pains {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pain-item {
+  font-size: 12px;
+  color: var(--gray-700);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.pain-item::before {
+  content: '→';
+  color: var(--orange);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* ── MENA BAND ── */
+.mena-band {
+  background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy-dark) 100%);
+  padding: 80px 40px;
+}
+
+.mena-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.mena-points {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.mena-point {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.mena-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.mena-point-text h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.mena-point-text p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+.mena-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.mena-stat-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.mena-stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.mena-stat-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* ── COMPETITIVE ── */
+.competitive {
+  background: var(--off-white);
+}
+
+.comp-table-wrap {
+  margin-top: 48px;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid var(--gray-100);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  font-size: 13px;
+}
+
+.comp-table th {
+  background: var(--navy-deeper);
+  color: var(--white);
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.comp-table th:first-child { border-radius: 0; }
+
+.comp-table td {
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+}
+
+.comp-table tr:last-child td { border-bottom: none; }
+
+.comp-table tr.highlight-row td {
+  background: rgba(27,79,138,0.04);
+  font-weight: 600;
+  color: var(--navy-dark);
+}
+
+.comp-table tr.highlight-row td:first-child {
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.our-badge {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.check { color: var(--green); font-weight: bold; }
+.cross { color: #dc2626; }
+.partial { color: #d97706; }
+
+/* ── PRICING ── */
+.pricing-section {
+  background: var(--white);
+}
+
+.pricing-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 48px;
+}
+
+.pricing-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gray-100);
+  padding: 5px;
+  border-radius: 100px;
+}
+
+.toggle-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-500);
+  padding: 6px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-label.active {
+  background: var(--white);
+  color: var(--navy);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.save-badge {
+  background: rgba(26,122,74,0.15);
+  color: var(--green);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.price-card {
+  border: 1px solid var(--gray-100);
+  border-radius: 14px;
+  padding: 28px 24px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.price-card:hover {
+  border-color: rgba(27,79,138,0.3);
+  box-shadow: 0 8px 32px rgba(27,79,138,0.08);
+}
+
+.price-card.popular {
+  border-color: var(--navy);
+  box-shadow: 0 8px 40px rgba(27,79,138,0.15);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: var(--white);
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  padding: 4px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.plan-name {
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 12px;
+}
+
+.plan-price {
+  margin-bottom: 6px;
+}
+
+.price-amount {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--navy-dark);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.price-period {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-left: 4px;
+}
+
+.price-annual {
+  font-size: 12px;
+  color: var(--green);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 6px;
+  min-height: 18px;
+}
+
+.plan-desc {
+  font-size: 12px;
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-100);
+  min-height: 52px;
+}
+
+.plan-cta {
+  display: block;
+  text-align: center;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+
+.cta-primary {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.cta-primary:hover {
+  background: var(--navy-dark);
+  transform: translateY(-1px);
+}
+
+.cta-orange {
+  background: var(--orange);
+  color: var(--white);
+}
+
+.cta-orange:hover {
+  background: var(--orange-light);
+  transform: translateY(-1px);
+}
+
+.cta-ghost {
+  border: 1px solid var(--gray-300);
+  color: var(--gray-700);
+}
+
+.cta-ghost:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+.feature-item::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.feature-item.locked {
+  color: var(--gray-300);
+}
+
+.feature-item.locked::before {
+  content: '—';
+  color: var(--gray-300);
+}
+
+/* ── FAQ ── */
+.faq-section {
+  background: var(--off-white);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.faq-q {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-dark);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.faq-a {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+/* ── CTA BAND ── */
+.cta-band {
+  background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy) 100%);
+  padding: 100px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-band::before {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,119,34,0.1) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cta-band-title {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.cta-band-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 36px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.cta-band-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.btn-cta-large {
+  background: var(--orange);
+  color: var(--white);
+  padding: 15px 32px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-cta-large:hover {
+  background: var(--orange-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232,119,34,0.4);
+}
+
+.btn-cta-ghost {
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  padding: 15px 32px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+
+.btn-cta-ghost:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-deeper);
+  padding: 60px 40px 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1160px;
+  margin: 0 auto 48px;
+}
+
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.footer-brand-logo img {
+  height: 34px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-brand-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.7;
+  max-width: 260px;
+}
+
+.footer-col-title {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--white); }
+
+.footer-bottom {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+}
+
+.footer-legal {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-legal a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+/* ── ANIMATIONS ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .what-is-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .persona-grid { grid-template-columns: 1fr; }
+  .mena-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .problem-grid { grid-template-columns: 1fr; }
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  section { padding: 60px 20px; }
+}
 </style>
 </head>
 <body>
-<header>
-  <h1>Retention Schematics OS</h1>
-  <p>The Retention Operating System for MENA SaaS and Fintech Companies</p>
-  <nav>
-    <a href="/index.html">Home</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/privacy.html">Privacy</a>
-    <a href="/refund.html">Refund Policy</a>
-  </nav>
-</header>
 
-<h2>Pricing</h2>
-<p>All plans include full access to the Retention Schematics OS platform. Billed monthly or annually. Cancel anytime.</p>
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="logo.png" alt="Retention Schematics OS">
+    <div class="nav-brand">
+      <span class="nav-brand-name">Retention Schematics OS</span>
+      <span class="nav-brand-tag">The MENA Retention Operating System</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what-is">What It Is</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#who-for">Who It's For</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="https://app.retentionschematicsos.com" class="btn-ghost">Sign In</a>
+    <a href="https://app.retentionschematicsos.com/register" class="btn-primary">Start Free — 15 Days</a>
+  </div>
+</nav>
 
-<div class="plan">
-  <h3>Starter</h3>
-  <div class="price">$49 / month</div>
-  <p>Full access to all retention tools, calculators, and diagnostic frameworks. Up to 3 users.</p>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow">MENA Retention Operating System</div>
+      <h1 class="hero-title">
+        Design the System.<br>
+        <span class="accent">Expand the Customer.</span><br>
+        Compound the Revenue.
+      </h1>
+      <p class="hero-subtitle">
+        The only retention platform built for MENA SaaS and fintech teams — with MENA benchmarks, Arabic-market context, and a full metrics-to-operations stack at 15% below global market rates.
+      </p>
+      <div class="hero-actions">
+        <a href="https://app.retentionschematicsos.com/register" class="btn-hero-primary">
+          Start Free Trial — No Credit Card ↗
+        </a>
+        <a href="pricing.html" class="btn-hero-ghost">View Pricing</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">15-day free trial</div>
+        <div class="trust-item">No credit card</div>
+        <div class="trust-item">No minimum seats</div>
+        <div class="trust-item">Self-serve setup</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="floating-tag tag-top">NRR Compounding +118% ↑</div>
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span class="hero-card-title">ACCOUNT HEALTH OVERVIEW</span>
+          <span class="hero-badge">LIVE</span>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-box">
+            <div class="metric-label">Portfolio NRR</div>
+            <div class="metric-value green">114%</div>
+            <div class="metric-delta">↑ +6% vs last quarter</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">At-Risk ARR</div>
+            <div class="metric-value orange">$48K</div>
+            <div class="metric-delta down">3 accounts flagged</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Renewal Rate</div>
+            <div class="metric-value">87%</div>
+            <div class="metric-delta">↑ +4% vs target</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Avg Health</div>
+            <div class="metric-value green">76</div>
+            <div class="metric-delta">↑ 12 pts this month</div>
+          </div>
+        </div>
+        <div class="health-bar-section">
+          <div class="health-bar-label"><span>Lean Technologies</span><span style="color:#4ade80">91 — Green</span></div>
+          <div class="health-bar-track"><div class="health-bar-fill fill-green"></div></div>
+        </div>
+        <br>
+        <div class="health-bar-section">
+          <div class="health-bar-label"><span>Paymob Solutions</span><span style="color:#fbbf24">58 — Yellow</span></div>
+          <div class="health-bar-track"><div class="health-bar-fill fill-yellow"></div></div>
+        </div>
+        <br>
+        <div class="health-bar-section">
+          <div class="health-bar-label"><span>Fawry Digital</span><span style="color:#f87171">22 — Red</span></div>
+          <div class="health-bar-track"><div class="health-bar-fill fill-red"></div></div>
+        </div>
+      </div>
+      <div class="floating-tag tag-bottom">⚡ Next Best Action: QBR with Paymob</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM BAND -->
+<div class="problem-band">
+  <div class="problem-grid">
+    <div class="problem-item fade-in">
+      <div class="problem-stat">65<span>–85%</span></div>
+      <div class="problem-text">cheaper than Gainsight, ChurnZero, and Vitally — with equivalent core features for MENA SMB teams.</div>
+    </div>
+    <div class="problem-item fade-in">
+      <div class="problem-stat">&lt;30<span>min</span></div>
+      <div class="problem-text">to first retention insight using Tool 08. No 4–8 week implementation. No dedicated CS ops team required.</div>
+    </div>
+    <div class="problem-item fade-in">
+      <div class="problem-stat">0<span> tools</span></div>
+      <div class="problem-text">existed for MENA-specific retention benchmarks, Majlis premium CAC, and Arabic-market customer dynamics. Until now.</div>
+    </div>
+  </div>
 </div>
 
-<div class="plan">
-  <h3>Professional</h3>
-  <div class="price">$149 / month</div>
-  <p>Everything in Starter plus advanced NRR modeling, playbook builder, and priority support. Up to 10 users.</p>
+<!-- WHAT IS IT -->
+<section class="what-is" id="what-is">
+  <div class="container">
+    <div class="section-eyebrow">What Is Retention Schematics OS</div>
+    <div class="what-is-grid">
+      <div class="what-is-left fade-in">
+        <h2 class="section-title">Not a CS playbook.<br>A revenue retention system.</h2>
+        <p class="section-subtitle">
+          Retention Schematics OS is built on a single principle: the goal is not to keep the customer — it is to expand the customer. Every tool, every diagnostic, every output is designed around NRR compounding, not churn reduction.
+        </p>
+        <div class="pillar-list">
+          <div class="pillar-item">
+            <div class="pillar-icon">📐</div>
+            <div class="pillar-text">
+              <h4>Retention Architecture</h4>
+              <p>Design your retention system the way an engineer designs a structure — with measurable load points, failure modes, and compounding strength over time.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon">📊</div>
+            <div class="pillar-text">
+              <h4>Metrics to Operations Stack</h4>
+              <p>From churn calculators to playbook automation to renewal pipeline — a complete operating system, not a collection of spreadsheets.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon">🌍</div>
+            <div class="pillar-text">
+              <h4>Built for MENA</h4>
+              <p>Western retention playbooks break in MENA markets. This platform is designed from the ground up for MENA SaaS and fintech realities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="what-is-right fade-in">
+        <div class="os-layer">
+          <div class="os-layer-label">Layer 01 — Metrics Engine</div>
+          <div class="os-layer-title">Revenue Intelligence</div>
+          <div class="os-layer-desc">Calculate, track, and benchmark every retention metric that matters to your CFO and board.</div>
+          <div class="os-layer-tools">
+            <span class="tool-chip">Churn Calculator</span>
+            <span class="tool-chip">NRR Engine</span>
+            <span class="tool-chip">LTV:CAC</span>
+            <span class="tool-chip">CAC Reality</span>
+            <span class="tool-chip">Budget Analyzer</span>
+          </div>
+        </div>
+        <div class="os-layer">
+          <div class="os-layer-label">Layer 02 — Customer Intelligence</div>
+          <div class="os-layer-title">Account Health System</div>
+          <div class="os-layer-desc">Score, monitor, and act on every account — with health bands, risk flags, and retention diagnostics.</div>
+          <div class="os-layer-tools">
+            <span class="tool-chip">Health Scoring</span>
+            <span class="tool-chip">Account Profiles</span>
+            <span class="tool-chip">NPS Engine</span>
+            <span class="tool-chip">TTV Tracker</span>
+          </div>
+        </div>
+        <div class="os-layer">
+          <div class="os-layer-label">Layer 03 — Operations Engine</div>
+          <div class="os-layer-title">Retention Execution</div>
+          <div class="os-layer-desc">Automate the right action at the right time — playbooks, NBA tasks, renewal pipeline, and calendar orchestration.</div>
+          <div class="os-layer-tools">
+            <span class="tool-chip">Playbook Builder</span>
+            <span class="tool-chip">NBA Engine</span>
+            <span class="tool-chip">Renewal Pipeline</span>
+            <span class="tool-chip">Email Integration</span>
+          </div>
+        </div>
+        <div class="os-layer">
+          <div class="os-layer-label">Layer 04 — Board Intelligence</div>
+          <div class="os-layer-title">Executive Reporting</div>
+          <div class="os-layer-desc">Board-ready NRR narratives, CFO-grade retention ROI models, and benchmark comparisons — auto-generated.</div>
+          <div class="os-layer-tools">
+            <span class="tool-chip">RPI Dashboard</span>
+            <span class="tool-chip">Board Narrative</span>
+            <span class="tool-chip">Benchmarks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-title">From zero to retention system<br>in under 30 minutes</h2>
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <div class="step-number">01</div>
+        <span class="step-icon">🔐</span>
+        <div class="step-title">Sign Up — No CC</div>
+        <div class="step-desc">Create your account in 60 seconds. 15-day free trial with no credit card required. Full access immediately.</div>
+        <div class="step-connector">→</div>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-number">02</div>
+        <span class="step-icon">📋</span>
+        <div class="step-title">Run the Diagnostic</div>
+        <div class="step-desc">The Retention Diagnostic captures your baseline metrics — ARR, churn rate, NPS, customer segments — and generates your retention score.</div>
+        <div class="step-connector">→</div>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-number">03</div>
+        <span class="step-icon">👥</span>
+        <div class="step-title">Add Your Accounts</div>
+        <div class="step-desc">Import or manually add your customer accounts. Health scores are calculated automatically from your data inputs.</div>
+        <div class="step-connector">→</div>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-number">04</div>
+        <span class="step-icon">⚡</span>
+        <div class="step-title">Activate the System</div>
+        <div class="step-desc">Set up playbooks, configure your renewal pipeline, and let the NBA engine surface the next best action for every at-risk account.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS IT FOR -->
+<section class="who-for" id="who-for">
+  <div class="container">
+    <div class="section-eyebrow">Who It's For</div>
+    <h2 class="section-title">Built for MENA teams managing<br>revenue retention seriously</h2>
+    <div class="persona-grid">
+      <div class="persona-card fade-in">
+        <div class="persona-role">Founder / CEO</div>
+        <div class="persona-title">You manage CS yourself and need a system</div>
+        <div class="persona-desc">Pre-Series B founders handling customer success without a dedicated team. You need retention metrics your investors understand.</div>
+        <div class="persona-pains">
+          <div class="pain-item">No visibility into which accounts will churn next quarter</div>
+          <div class="pain-item">Board asks for NRR — you're calculating it in a spreadsheet</div>
+          <div class="pain-item">Can't afford Gainsight. Excel isn't enough.</div>
+        </div>
+      </div>
+      <div class="persona-card fade-in">
+        <div class="persona-role">CS Leader / Manager</div>
+        <div class="persona-title">You have a small team and need operational leverage</div>
+        <div class="persona-desc">Head of CS or VP CS at a MENA SaaS company with 2–8 CSMs managing 50–300 accounts. You need a real platform.</div>
+        <div class="persona-pains">
+          <div class="pain-item">Manual health scoring is eating 6+ hours per week</div>
+          <div class="pain-item">No playbook system — every CSM operates differently</div>
+          <div class="pain-item">Renewal forecasts are guesswork without a pipeline tool</div>
+        </div>
+      </div>
+      <div class="persona-card fade-in">
+        <div class="persona-role">CFO / Finance</div>
+        <div class="persona-title">You need retention ROI in board-ready format</div>
+        <div class="persona-desc">Finance leaders who need to model the revenue impact of retention investments and present NRR trends to the board.</div>
+        <div class="persona-pains">
+          <div class="pain-item">CS team can't quantify the ROI of their work in dollars</div>
+          <div class="pain-item">NRR benchmarks vs MENA market are unavailable</div>
+          <div class="pain-item">LTV:CAC models are built in Excel with no audit trail</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENA BAND -->
+<div class="mena-band">
+  <div class="mena-grid">
+    <div class="fade-in">
+      <div class="section-eyebrow">Why MENA-Specific</div>
+      <h2 class="section-title white">Western retention playbooks break in MENA markets.</h2>
+      <div class="mena-points">
+        <div class="mena-point">
+          <div class="mena-dot"></div>
+          <div class="mena-point-text">
+            <h4>Majlis Premium CAC</h4>
+            <p>Enterprise deals in the Gulf require executive relationship investment — formal gatherings, travel, hospitality. Standard CAC models ignore this entirely.</p>
+          </div>
+        </div>
+        <div class="mena-point">
+          <div class="mena-dot"></div>
+          <div class="mena-point-text">
+            <h4>MENA NRR Benchmarks</h4>
+            <p>Global benchmarks from US SaaS don't apply. We track MENA-specific NRR ranges by segment, growth stage, and vertical.</p>
+          </div>
+        </div>
+        <div class="mena-point">
+          <div class="mena-dot"></div>
+          <div class="mena-point-text">
+            <h4>Relationship-Driven Churn</h4>
+            <p>MENA churn is often triggered by relationship breakdowns, not product failures. The platform accounts for relationship health signals.</p>
+          </div>
+        </div>
+        <div class="mena-point">
+          <div class="mena-dot"></div>
+          <div class="mena-point-text">
+            <h4>Self-Serve at Affordable Price</h4>
+            <p>Zero competitors offer transparent, self-serve pricing for MENA teams. Every alternative requires a sales call and $20,000+ contracts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mena-stat-grid fade-in">
+      <div class="mena-stat-box">
+        <div class="mena-stat-value">$0</div>
+        <div class="mena-stat-label">MENA-specific CS platforms with transparent self-serve pricing before this one</div>
+      </div>
+      <div class="mena-stat-box">
+        <div class="mena-stat-value">15%</div>
+        <div class="mena-stat-label">Below comparable global SMB market rates — verified against 10 competitors</div>
+      </div>
+      <div class="mena-stat-box">
+        <div class="mena-stat-value">30min</div>
+        <div class="mena-stat-label">To first retention insight using the Churn Calculator — vs 4–8 weeks for enterprise tools</div>
+      </div>
+      <div class="mena-stat-box">
+        <div class="mena-stat-value">1 seat</div>
+        <div class="mena-stat-label">Minimum — no 2–10 seat minimums like every competitor. Works for a solo founder.</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="plan">
-  <h3>Enterprise</h3>
-  <div class="price">Custom</div>
-  <p>Full platform access, dedicated onboarding, custom retention diagnostics, and team training. Unlimited users.</p>
+<!-- COMPETITIVE -->
+<section class="competitive">
+  <div class="container">
+    <div class="section-eyebrow">How We Compare</div>
+    <h2 class="section-title">The only self-serve MENA CS platform<br>with transparent pricing</h2>
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Starter Price</th>
+            <th>Full Platform</th>
+            <th>MENA-Aware</th>
+            <th>Self-Serve</th>
+            <th>Free Tier</th>
+            <th>Min Seats</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td><span>Retention Schematics OS</span><span class="our-badge">YOU</span></td>
+            <td><strong style="color:var(--navy)">$75/seat</strong></td>
+            <td><strong style="color:var(--navy)">$109/seat</strong></td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+            <td><strong>1 seat</strong></td>
+          </tr>
+          <tr>
+            <td>HubSpot Service Hub</td>
+            <td>$45/seat</td>
+            <td>$90/seat</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+            <td class="cross">✗</td>
+            <td>2 seats</td>
+          </tr>
+          <tr>
+            <td>Accoil</td>
+            <td>~$20/seat</td>
+            <td>~$50/seat</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+            <td class="cross">✗</td>
+            <td>1 seat</td>
+          </tr>
+          <tr>
+            <td>Totango</td>
+            <td>$125/seat</td>
+            <td>$110+/seat</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+            <td class="partial">Limited</td>
+            <td>5 seats</td>
+          </tr>
+          <tr>
+            <td>Custify</td>
+            <td>$300/seat</td>
+            <td>$300+/seat</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td>3 seats</td>
+          </tr>
+          <tr>
+            <td>ChurnZero</td>
+            <td>Custom</td>
+            <td>$150+/seat est.</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td>5+ seats</td>
+          </tr>
+          <tr>
+            <td>Gainsight CS</td>
+            <td>Custom</td>
+            <td>$300+/seat est.</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td>10+ seats</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2 class="cta-band-title">Start your retention system today.</h2>
+  <p class="cta-band-sub">15 days free. No credit card. No minimum seats. Full platform access from day one.</p>
+  <div class="cta-band-actions">
+    <a href="https://app.retentionschematicsos.com/register" class="btn-cta-large">Start Free Trial</a>
+    <a href="pricing.html" class="btn-cta-ghost">See Pricing</a>
+  </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-  <a href="/terms.html">Terms of Service</a>
-  <a href="/privacy.html">Privacy Policy</a>
-  <a href="/refund.html">Refund Policy</a>
-  <p>© 2026 Retention Schematics OS. All rights reserved.</p>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-logo">
+        <img src="logo.png" alt="Retention Schematics OS">
+        <span class="footer-brand-name">Retention Schematics OS</span>
+      </div>
+      <div class="footer-tagline">
+        Design the System. Expand the Customer. Compound the Revenue.<br><br>
+        The only retention operating system built for MENA SaaS and fintech companies.
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <ul class="footer-links">
+        <li><a href="#what-is">What It Is</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#who-for">Who It's For</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="https://tarekmabrouk.substack.com">Substack</a></li>
+        <li><a href="mailto:support@retentionschematicsos.com">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <ul class="footer-links">
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/refund.html">Refund Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Retention Schematics OS. All rights reserved. Cairo, Egypt.</span>
+    <div class="footer-legal">
+      <a href="/terms.html">Terms</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/refund.html">Refunds</a>
+    </div>
+  </div>
 </footer>
+
+<script>
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
